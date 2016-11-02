@@ -7451,19 +7451,41 @@ var _user$project$Main$view = function (model) {
 			[]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html$text('kachow')
+				_elm_lang$html$Html$text('Hello there'),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'you have ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(model.inventory.rubies),
+								' rubies!')))
+					]))
 			]));
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 	});
-var _user$project$Main$Model = function (a) {
-	return {activity: a};
+var _user$project$Main$Inventory = function (a) {
+	return {rubies: a};
 };
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {activity: a, inventory: b};
+	});
 var _user$project$Main$Story = {ctor: 'Story'};
 var _user$project$Main$Game = {ctor: 'Game'};
-var _user$project$Main$initModel = {activity: _user$project$Main$Game};
+var _user$project$Main$initModel = {
+	activity: _user$project$Main$Game,
+	inventory: {rubies: 1}
+};
 var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$main = {
 	main: _elm_lang$html$Html_App$program(
