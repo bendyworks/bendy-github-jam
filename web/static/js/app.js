@@ -15,7 +15,7 @@ import "phoenix_html"
 import Elm from './main';
 const elmDiv = document.querySelector('#elm-target');
 if (elmDiv) {
-  Elm.Main.embed(elmDiv, 1);
+  Elm.Main.embed(elmDiv, undefined);
 }
 
 // Import local files

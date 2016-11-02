@@ -7451,19 +7451,22 @@ var _user$project$Main$view = function (model) {
 			[]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html$text('ohai')
+				_elm_lang$html$Html$text('kachow')
 			]));
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 	});
-var _user$project$Main$initModel = 1;
-var _user$project$Main$init = function (a) {
-	return {ctor: '_Tuple2', _0: _user$project$Main$initModel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$Main$Model = function (a) {
+	return {activity: a};
 };
+var _user$project$Main$Story = {ctor: 'Story'};
+var _user$project$Main$Game = {ctor: 'Game'};
+var _user$project$Main$initModel = {activity: _user$project$Main$Game};
+var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$main = {
-	main: _elm_lang$html$Html_App$programWithFlags(
+	main: _elm_lang$html$Html_App$program(
 		{
 			init: _user$project$Main$init,
 			view: _user$project$Main$view,
@@ -7471,8 +7474,7 @@ var _user$project$Main$main = {
 			subscriptions: function (_p0) {
 				return _elm_lang$core$Platform_Sub$none;
 			}
-		}),
-	flags: _elm_lang$core$Json_Decode$int
+		})
 };
 var _user$project$Main$Noop = {ctor: 'Noop'};
 
