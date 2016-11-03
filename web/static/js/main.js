@@ -7706,27 +7706,47 @@ var _user$project$Storylets_Models$storyletForId = F2(
 			return _user$project$Storylets_Models$emptyStorylet;
 		}
 	});
+var _user$project$Storylets_Models$fewerRubies = {
+	title: 'Lose Some Rubies',
+	body: '\n### Oh No! A Bad Thing Has Happened\n\n#### You have lost 1 Rubies!\n\nAnd I didn\'t implement a 0 bound check! :o\n\n',
+	choices: _elm_lang$core$Native_List.fromArray(
+		[0]),
+	rubies: -3,
+	id: 3
+};
+var _user$project$Storylets_Models$moreRubies = {
+	title: 'Gain More Rubies',
+	body: '\n### OK, here are some **MORE RUBIES**\n\nWhat should they be for??\n\n',
+	choices: _elm_lang$core$Native_List.fromArray(
+		[0]),
+	rubies: 2,
+	id: 2
+};
 var _user$project$Storylets_Models$demoNextStorylet = {
 	title: 'The Next Storylet',
 	body: '\n### Yay! It works\n\n#### Your `rubies` count has been incremented\n\nNow to implement the actual game part...\n\nI\'m thinking\n- Maybe a twin stick shooter or stealth-em-up?\n- Or, somewhat easier and less fancy, something deterministic like [Desktop Dungeons](http://www.desktopdungeons.net/media/)\n\nI\'m also thinking about\n- Loading storylets from the server rather than hardcoding them in elm\n- How to actually structure the game choices / decision points\n- The interaction between the embedded game and this surrounding \"Choose your own adventure\" layer\n- Names. Names are hard.\n\n',
 	choices: _elm_lang$core$Native_List.fromArray(
-		[]),
+		[2, 3]),
 	rubies: 1,
 	id: 1
 };
 var _user$project$Storylets_Models$introStorylet = {
-	title: 'Hello',
+	title: 'The Start',
 	body: '\n### This is some intro text.\n\n#### It should explain:\n- You are a **BENDYWORKER**. Last of a dying breed of\nconsole cowboys and netrunners, who eke out an existence cyberdiving\ninto the computational wilderness of 20XX\n- With your **PAIR PROGRAMMING PARTNER** at your side, you must brave the\nnetscapes of the interway at **GREAT PERIL**.\n- And then come back to the story mode framing interface and upgrade\nyour stats and such. **FOR GREAT JUSTICE**\n- You shall **HACK** and/or **MOD** and/or **AUGMENT** and/or **:kanye:**\nyour bendyself to achieve **MAXIMUM FUNTIMES**\n',
 	choices: _elm_lang$core$Native_List.fromArray(
 		[1]),
 	rubies: 0,
 	id: 0
 };
-var _user$project$Storylets_Models$initialStorylets = A3(
-	_elm_lang$core$Dict$insert,
-	1,
-	_user$project$Storylets_Models$demoNextStorylet,
-	A3(_elm_lang$core$Dict$insert, 0, _user$project$Storylets_Models$introStorylet, _elm_lang$core$Dict$empty));
+var _user$project$Storylets_Models$initialStoryletList = _elm_lang$core$Native_List.fromArray(
+	[_user$project$Storylets_Models$introStorylet, _user$project$Storylets_Models$demoNextStorylet, _user$project$Storylets_Models$moreRubies, _user$project$Storylets_Models$fewerRubies, _user$project$Storylets_Models$emptyStorylet]);
+var _user$project$Storylets_Models$initialStorylets = _elm_lang$core$Dict$fromList(
+	A2(
+		_elm_lang$core$List$map,
+		function (storylet) {
+			return {ctor: '_Tuple2', _0: storylet.id, _1: storylet};
+		},
+		_user$project$Storylets_Models$initialStoryletList));
 var _user$project$Storylets_Models$Storylet = F5(
 	function (a, b, c, d, e) {
 		return {title: a, body: b, choices: c, rubies: d, id: e};

@@ -13,7 +13,7 @@ type alias StoryDict = Dict.Dict Int Storylet
 
 introStorylet : Storylet
 introStorylet =
-  { title = "Hello"
+  { title = "The Start"
   , body =
     """
 ### This is some intro text.
@@ -56,9 +56,41 @@ I'm also thinking about
 - Names. Names are hard.
 
 """
-  , choices = []
+  , choices = [2,3]
   , rubies = 1
   , id = 1
+  }
+
+moreRubies : Storylet
+moreRubies =
+  { title = "Gain More Rubies"
+  , body =
+    """
+### OK, here are some **MORE RUBIES**
+
+What should they be for??
+
+"""
+  , choices = [0]
+  , rubies = 2
+  , id = 2
+  }
+
+fewerRubies : Storylet
+fewerRubies =
+  { title = "Lose Some Rubies"
+  , body =
+    """
+### Oh No! A Bad Thing Has Happened
+
+#### You have lost 1 Rubies!
+
+And I didn't implement a 0 bound check! :o
+
+"""
+  , choices = [0]
+  , rubies = -3
+  , id = 3
   }
 
 emptyStorylet : Storylet
@@ -79,10 +111,14 @@ storyletForId storyletDict id =
       Just storylet -> storylet
       Nothing -> emptyStorylet
 
+initialStoryletList : List Storylet
+initialStoryletList =
+  [introStorylet, demoNextStorylet, moreRubies, fewerRubies, emptyStorylet]
+
 initialStorylets : Dict.Dict Int Storylet
 initialStorylets =
-  Dict.insert 1 demoNextStorylet
-  <| Dict.insert 0 introStorylet Dict.empty
+  Dict.fromList
+  <| List.map (\storylet -> (storylet.id, storylet)) initialStoryletList
 
 currentStorylet : Int -> Dict.Dict Int Storylet -> Maybe Storylet
 currentStorylet id storyletDict =
