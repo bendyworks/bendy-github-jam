@@ -39,11 +39,22 @@ demoNextStorylet =
   { title = "The Next Storylet"
   , body =
     """
-### Yay
+### Yay! It works
 
-#### It works
+#### Your `rubies` count has been incremented
 
-Lets implement the actual game part yeah?
+Now to implement the actual game part...
+
+I'm thinking
+- Maybe a twin stick shooter or stealth-em-up?
+- Or, somewhat easier and less fancy, something deterministic like [Desktop Dungeons](http://www.desktopdungeons.net/media/)
+
+I'm also thinking about
+- Loading storylets from the server rather than hardcoding them in elm
+- How to actually structure the game choices / decision points
+- The interaction between the embedded game and this surrounding "Choose your own adventure" layer
+- Names. Names are hard.
+
 """
   , choices = []
   , rubies = 1

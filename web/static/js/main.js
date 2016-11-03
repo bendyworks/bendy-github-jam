@@ -7708,7 +7708,7 @@ var _user$project$Storylets_Models$storyletForId = F2(
 	});
 var _user$project$Storylets_Models$demoNextStorylet = {
 	title: 'The Next Storylet',
-	body: '\n### Yay\n\n#### It works\n\nLets implement the actual game part yeah?\n',
+	body: '\n### Yay! It works\n\n#### Your `rubies` count has been incremented\n\nNow to implement the actual game part...\n\nI\'m thinking\n- Maybe a twin stick shooter or stealth-em-up?\n- Or, somewhat easier and less fancy, something deterministic like [Desktop Dungeons](http://www.desktopdungeons.net/media/)\n\nI\'m also thinking about\n- Loading storylets from the server rather than hardcoding them in elm\n- How to actually structure the game choices / decision points\n- The interaction between the embedded game and this surrounding \"Choose your own adventure\" layer\n- Names. Names are hard.\n\n',
 	choices: _elm_lang$core$Native_List.fromArray(
 		[]),
 	rubies: 1,
