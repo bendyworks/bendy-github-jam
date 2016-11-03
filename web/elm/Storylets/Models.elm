@@ -5,7 +5,11 @@ import Dict
 type alias Storylet = { title: String
                       , body: String
                       , choices: List Int
+                      , rubies: Int
+                      , id: Int
                       }
+
+type alias StoryDict = Dict.Dict Int Storylet
 
 introStorylet : Storylet
 introStorylet =
@@ -22,15 +26,37 @@ into the computational wilderness of 20XX
 netscapes of the interway at **GREAT PERIL**.
 - And then come back to the story mode framing interface and upgrade
 your stats and such. **FOR GREAT JUSTICE**
+- You shall **HACK** and/or **MOD** and/or **AUGMENT** and/or **:kanye:**
+your bendyself to achieve **MAXIMUM FUNTIMES**
 """
   , choices = [1]
+  , rubies = 0
+  , id = 0
+  }
+
+demoNextStorylet : Storylet
+demoNextStorylet =
+  { title = "The Next Storylet"
+  , body =
+    """
+### Yay
+
+#### It works
+
+Lets implement the actual game part yeah?
+"""
+  , choices = []
+  , rubies = 1
+  , id = 1
   }
 
 emptyStorylet : Storylet
 emptyStorylet =
   { title = "Blank (this shouldn't happen)"
   , body = "Seriously this is probs a bugx"
-  , choices = [0]
+  , choices = []
+  , rubies = 0
+  , id = -1
   }
 
 storyletForId : Dict.Dict Int Storylet -> Int -> Storylet
@@ -44,7 +70,8 @@ storyletForId storyletDict id =
 
 initialStorylets : Dict.Dict Int Storylet
 initialStorylets =
-  Dict.insert 0 introStorylet Dict.empty
+  Dict.insert 1 demoNextStorylet
+  <| Dict.insert 0 introStorylet Dict.empty
 
 currentStorylet : Int -> Dict.Dict Int Storylet -> Maybe Storylet
 currentStorylet id storyletDict =

@@ -7444,6 +7444,107 @@ var _elm_lang$html$Html_App$beginnerProgram = function (_p1) {
 };
 var _elm_lang$html$Html_App$map = _elm_lang$virtual_dom$VirtualDom$map;
 
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode_ops[':='], 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
+	_elm_lang$core$Native_List.fromArray(
+		['target', 'checked']),
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
+	_elm_lang$core$Native_List.fromArray(
+		['target', 'value']),
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
+
 var _evancz$elm_markdown$Native_Markdown = function() {
 
 
@@ -7591,7 +7692,9 @@ var _user$project$Storylets_Models$emptyStorylet = {
 	title: 'Blank (this shouldn\'t happen)',
 	body: 'Seriously this is probs a bugx',
 	choices: _elm_lang$core$Native_List.fromArray(
-		[0])
+		[]),
+	rubies: 0,
+	id: -1
 };
 var _user$project$Storylets_Models$storyletForId = F2(
 	function (storyletDict, id) {
@@ -7603,16 +7706,30 @@ var _user$project$Storylets_Models$storyletForId = F2(
 			return _user$project$Storylets_Models$emptyStorylet;
 		}
 	});
+var _user$project$Storylets_Models$demoNextStorylet = {
+	title: 'The Next Storylet',
+	body: '\n### Yay\n\n#### It works\n\nLets implement the actual game part yeah?\n',
+	choices: _elm_lang$core$Native_List.fromArray(
+		[]),
+	rubies: 1,
+	id: 1
+};
 var _user$project$Storylets_Models$introStorylet = {
 	title: 'Hello',
-	body: '\n### This is some intro text.\n\n#### It should explain:\n- You are a **BENDYWORKER**. Last of a dying breed of\nconsole cowboys and netrunners, who eke out an existence cyberdiving\ninto the computational wilderness of 20XX\n- With your **PAIR PROGRAMMING PARTNER** at your side, you must brave the\nnetscapes of the interway at **GREAT PERIL**.\n- And then come back to the story mode framing interface and upgrade\nyour stats and such. **FOR GREAT JUSTICE**\n',
+	body: '\n### This is some intro text.\n\n#### It should explain:\n- You are a **BENDYWORKER**. Last of a dying breed of\nconsole cowboys and netrunners, who eke out an existence cyberdiving\ninto the computational wilderness of 20XX\n- With your **PAIR PROGRAMMING PARTNER** at your side, you must brave the\nnetscapes of the interway at **GREAT PERIL**.\n- And then come back to the story mode framing interface and upgrade\nyour stats and such. **FOR GREAT JUSTICE**\n- You shall **HACK** and/or **MOD** and/or **AUGMENT** and/or **:kanye:**\nyour bendyself to achieve **MAXIMUM FUNTIMES**\n',
 	choices: _elm_lang$core$Native_List.fromArray(
-		[1])
+		[1]),
+	rubies: 0,
+	id: 0
 };
-var _user$project$Storylets_Models$initialStorylets = A3(_elm_lang$core$Dict$insert, 0, _user$project$Storylets_Models$introStorylet, _elm_lang$core$Dict$empty);
-var _user$project$Storylets_Models$Storylet = F3(
-	function (a, b, c) {
-		return {title: a, body: b, choices: c};
+var _user$project$Storylets_Models$initialStorylets = A3(
+	_elm_lang$core$Dict$insert,
+	1,
+	_user$project$Storylets_Models$demoNextStorylet,
+	A3(_elm_lang$core$Dict$insert, 0, _user$project$Storylets_Models$introStorylet, _elm_lang$core$Dict$empty));
+var _user$project$Storylets_Models$Storylet = F5(
+	function (a, b, c, d, e) {
+		return {title: a, body: b, choices: c, rubies: d, id: e};
 	});
 
 var _user$project$Models$Inventory = function (a) {
@@ -7632,7 +7749,47 @@ var _user$project$Models$initModel = {
 var _user$project$Models$Game = {ctor: 'Game'};
 
 var _user$project$Messages$Noop = {ctor: 'Noop'};
+var _user$project$Messages$SetActivity = function (a) {
+	return {ctor: 'SetActivity', _0: a};
+};
+var _user$project$Messages$TransitionTo = function (a) {
+	return {ctor: 'TransitionTo', _0: a};
+};
 
+var _user$project$Storylets_Views$buttonForChoice = F2(
+	function (stories, eventId) {
+		var storylet = A2(_user$project$Storylets_Models$storyletForId, stories, eventId);
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$button,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Events$onClick(
+							_user$project$Messages$TransitionTo(storylet))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(storylet.title)
+						]))
+				]));
+	});
+var _user$project$Storylets_Views$buttonsForChoices = F2(
+	function (stories, choices) {
+		var buttons = A2(
+			_elm_lang$core$List$map,
+			_user$project$Storylets_Views$buttonForChoice(stories),
+			choices);
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			buttons);
+	});
 var _user$project$Storylets_Views$storyletDiv = function (model) {
 	var storylet = A2(_user$project$Storylets_Models$storyletForId, model.storylets, model.currentStorylet);
 	return A2(
@@ -7660,10 +7817,78 @@ var _user$project$Storylets_Views$storyletDiv = function (model) {
 						_elm_lang$core$Native_List.fromArray(
 							[]),
 						storylet.body)
-					]))
+					])),
+				A2(_user$project$Storylets_Views$buttonsForChoices, model.storylets, storylet.choices)
 			]));
 };
 
+var _user$project$Views$activityControl = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(
+						_user$project$Messages$SetActivity(_user$project$Models$Game))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Game')
+					])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(
+						_user$project$Messages$SetActivity(_user$project$Models$BendyRealm))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Story')
+					]))
+			]));
+};
+var _user$project$Views$gameView = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$h2,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Game')
+					])),
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('The game should go here. Maybe external to Elm w/ ports?')
+					]))
+			]));
+};
+var _user$project$Views$storyView = function (model) {
+	return _user$project$Storylets_Views$storyletDiv(model);
+};
+var _user$project$Views$viewForActivity = function (model) {
+	var _p0 = model.activity;
+	if (_p0.ctor === 'Game') {
+		return _user$project$Views$gameView(model);
+	} else {
+		return _user$project$Views$storyView(model);
+	}
+};
 var _user$project$Views$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -7671,7 +7896,7 @@ var _user$project$Views$view = function (model) {
 			[]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html$text('Hello there bendyperson!'),
+				_elm_lang$html$Html$text('Ohai there bendyperson!'),
 				A2(
 				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
@@ -7686,14 +7911,49 @@ var _user$project$Views$view = function (model) {
 								_elm_lang$core$Basics_ops['++'],
 								_elm_lang$core$Basics$toString(model.inventory.rubies),
 								' rubies!'))),
-						_user$project$Storylets_Views$storyletDiv(model)
+						_user$project$Views$activityControl(model),
+						A2(
+						_elm_lang$html$Html$hr,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[])),
+						_user$project$Views$viewForActivity(model)
 					]))
 			]));
 };
 
+var _user$project$Update$transition = F2(
+	function (model, storylet) {
+		var inventory = model.inventory;
+		var newInventory = _elm_lang$core$Native_Utils.update(
+			inventory,
+			{rubies: inventory.rubies + storylet.rubies});
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{inventory: newInventory, currentStorylet: storylet.id});
+	});
 var _user$project$Update$update = F2(
 	function (msg, model) {
-		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'TransitionTo':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$Update$transition, model, _p0._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SetActivity':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{activity: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		}
 	});
 
 var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Models$initModel, _1: _elm_lang$core$Platform_Cmd$none};

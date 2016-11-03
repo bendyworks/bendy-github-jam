@@ -9,7 +9,6 @@ type Activity =
 
 type alias Inventory = {rubies: Int}
 
-
 type alias Model = {activity: Activity
                     , inventory: Inventory
                     , currentStorylet: Int
