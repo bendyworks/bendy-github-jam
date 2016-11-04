@@ -8,7 +8,8 @@
 - `mix deps.get`
 - `npm install`
 - `mix ecto.create` (might not be necessary)
-- `cd web/elm && elm-package install`
+- `cd web/elm`
+- `elm-package install`
 - `cd ..`
 - `mix phoenix.serve`
 - [localhost:4000](http://localhost:4000)
