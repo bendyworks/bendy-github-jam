@@ -5,10 +5,11 @@
 - Install [Elm](http://elm-lang.org:1234/install)
 - Clone this repo
 - cd into it
-- `cd web/elm && elm-package install`
 - `mix deps.get`
 - `npm install`
 - `mix ecto.create` (might not be necessary)
+- `cd web/elm && elm-package install`
+- `cd ..`
 - `mix phoenix.serve`
 - [localhost:4000](http://localhost:4000)
 
