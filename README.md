@@ -7,6 +7,7 @@
   - Install elixir: `brew install elixir`
   - Install Hex locally: `mix local.hex`
   - Create the default postgres user: `createuser -d postgres`
+  - Install Phoenix: `mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez`
 - Install [Elm](http://elm-lang.org:1234/install)
   - `npm install -g elm`
 - Clone this repo
