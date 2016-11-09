@@ -4,8 +4,7 @@ import Dict
 
 type alias Storylet = { title: String
                       , body: String
-                      , choices: List Int
-                      , rubies: Int
+                      , events: List Int
                       , id: Int
                       }
 
@@ -29,8 +28,7 @@ your stats and such. **FOR GREAT JUSTICE**
 - You shall **HACK** and/or **MOD** and/or **AUGMENT** and/or **:kanye:**
 your bendyself to achieve **MAXIMUM FUNTIMES**
 """
-  , choices = [1]
-  , rubies = 0
+  , events = [0]
   , id = 0
   }
 
@@ -56,8 +54,7 @@ I'm also thinking about
 - Names. Names are hard.
 
 """
-  , choices = [2,3]
-  , rubies = 1
+  , events = [1]
   , id = 1
   }
 
@@ -71,8 +68,7 @@ moreRubies =
 What should they be for??
 
 """
-  , choices = [0]
-  , rubies = 2
+  , events = [2]
   , id = 2
   }
 
@@ -88,8 +84,7 @@ fewerRubies =
 And I didn't implement a 0 bound check! :o
 
 """
-  , choices = [0]
-  , rubies = -3
+  , events = [0]
   , id = 3
   }
 
@@ -97,8 +92,7 @@ emptyStorylet : Storylet
 emptyStorylet =
   { title = "Blank (this shouldn't happen)"
   , body = "Seriously this is probs a bugx"
-  , choices = []
-  , rubies = 0
+  , events = []
   , id = -1
   }
 

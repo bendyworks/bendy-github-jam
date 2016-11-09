@@ -7684,6 +7684,49 @@ var _evancz$elm_markdown$Markdown$Options = F4(
 		return {githubFlavored: a, defaultHighlighting: b, sanitize: c, smartypants: d};
 	});
 
+var _user$project$Players_Models$Inventory = function (a) {
+	return {rubies: a};
+};
+
+var _user$project$Events_Models$idFn = function (inv) {
+	return inv;
+};
+var _user$project$Events_Models$initialEventList = function () {
+	var inventoryFn = function (inventory) {
+		return _elm_lang$core$Native_Utils.update(
+			inventory,
+			{rubies: inventory.rubies + 1});
+	};
+	return _elm_lang$core$Native_List.fromArray(
+		[
+			{title: 'A transition', body: 'You gained a rubies by transitioning through this event!', id: 0, from: 0, to: 1, onBefore: inventoryFn, onAfter: _user$project$Events_Models$idFn},
+			{title: 'Another transition', body: 'Yay! it worked again!', id: 1, from: 1, to: 2, onBefore: _user$project$Events_Models$idFn, onAfter: _user$project$Events_Models$idFn},
+			{title: 'The Last Event', body: 'OK now its gonna loop back to the start', id: 2, from: 2, to: 0, onBefore: _user$project$Events_Models$idFn, onAfter: _user$project$Events_Models$idFn}
+		]);
+}();
+var _user$project$Events_Models$initialEvents = _elm_lang$core$Dict$fromList(
+	A2(
+		_elm_lang$core$List$map,
+		function (event) {
+			return {ctor: '_Tuple2', _0: event.id, _1: event};
+		},
+		_user$project$Events_Models$initialEventList));
+var _user$project$Events_Models$emptyEvent = {title: 'Missing Event', body: 'Its missing!', id: -1, from: 1, to: 0, onBefore: _user$project$Events_Models$idFn, onAfter: _user$project$Events_Models$idFn};
+var _user$project$Events_Models$eventForId = F2(
+	function (eventDict, id) {
+		var fetched = A2(_elm_lang$core$Dict$get, id, eventDict);
+		var _p0 = fetched;
+		if (_p0.ctor === 'Just') {
+			return _p0._0;
+		} else {
+			return _user$project$Events_Models$emptyEvent;
+		}
+	});
+var _user$project$Events_Models$Event = F7(
+	function (a, b, c, d, e, f, g) {
+		return {title: a, id: b, body: c, from: d, to: e, onBefore: f, onAfter: g};
+	});
+
 var _user$project$Storylets_Models$currentStorylet = F2(
 	function (id, storyletDict) {
 		return A2(_elm_lang$core$Dict$get, id, storyletDict);
@@ -7691,9 +7734,8 @@ var _user$project$Storylets_Models$currentStorylet = F2(
 var _user$project$Storylets_Models$emptyStorylet = {
 	title: 'Blank (this shouldn\'t happen)',
 	body: 'Seriously this is probs a bugx',
-	choices: _elm_lang$core$Native_List.fromArray(
+	events: _elm_lang$core$Native_List.fromArray(
 		[]),
-	rubies: 0,
 	id: -1
 };
 var _user$project$Storylets_Models$storyletForId = F2(
@@ -7709,33 +7751,29 @@ var _user$project$Storylets_Models$storyletForId = F2(
 var _user$project$Storylets_Models$fewerRubies = {
 	title: 'Lose Some Rubies',
 	body: '\n### Oh No! A Bad Thing Has Happened\n\n#### You have lost 1 Rubies!\n\nAnd I didn\'t implement a 0 bound check! :o\n\n',
-	choices: _elm_lang$core$Native_List.fromArray(
+	events: _elm_lang$core$Native_List.fromArray(
 		[0]),
-	rubies: -3,
 	id: 3
 };
 var _user$project$Storylets_Models$moreRubies = {
 	title: 'Gain More Rubies',
 	body: '\n### OK, here are some **MORE RUBIES**\n\nWhat should they be for??\n\n',
-	choices: _elm_lang$core$Native_List.fromArray(
-		[0]),
-	rubies: 2,
+	events: _elm_lang$core$Native_List.fromArray(
+		[2]),
 	id: 2
 };
 var _user$project$Storylets_Models$demoNextStorylet = {
 	title: 'The Next Storylet',
 	body: '\n### Yay! It works\n\n#### Your `rubies` count has been incremented\n\nNow to implement the actual game part...\n\nI\'m thinking\n- Maybe a twin stick shooter or stealth-em-up?\n- Or, somewhat easier and less fancy, something deterministic like [Desktop Dungeons](http://www.desktopdungeons.net/media/)\n\nI\'m also thinking about\n- Loading storylets from the server rather than hardcoding them in elm\n- How to actually structure the game choices / decision points\n- The interaction between the embedded game and this surrounding \"Choose your own adventure\" layer\n- Names. Names are hard.\n\n',
-	choices: _elm_lang$core$Native_List.fromArray(
-		[2, 3]),
-	rubies: 1,
+	events: _elm_lang$core$Native_List.fromArray(
+		[1]),
 	id: 1
 };
 var _user$project$Storylets_Models$introStorylet = {
 	title: 'The Start',
 	body: '\n### This is some intro text.\n\n#### It should explain:\n- You are a **BENDYWORKER**. Last of a dying breed of\nconsole cowboys and netrunners, who eke out an existence cyberdiving\ninto the computational wilderness of 20XX\n- With your **PAIR PROGRAMMING PARTNER** at your side, you must brave the\nnetscapes of the interway at **GREAT PERIL**.\n- And then come back to the story mode framing interface and upgrade\nyour stats and such. **FOR GREAT JUSTICE**\n- You shall **HACK** and/or **MOD** and/or **AUGMENT** and/or **:kanye:**\nyour bendyself to achieve **MAXIMUM FUNTIMES**\n',
-	choices: _elm_lang$core$Native_List.fromArray(
-		[1]),
-	rubies: 0,
+	events: _elm_lang$core$Native_List.fromArray(
+		[0]),
 	id: 0
 };
 var _user$project$Storylets_Models$initialStoryletList = _elm_lang$core$Native_List.fromArray(
@@ -7747,24 +7785,29 @@ var _user$project$Storylets_Models$initialStorylets = _elm_lang$core$Dict$fromLi
 			return {ctor: '_Tuple2', _0: storylet.id, _1: storylet};
 		},
 		_user$project$Storylets_Models$initialStoryletList));
-var _user$project$Storylets_Models$Storylet = F5(
-	function (a, b, c, d, e) {
-		return {title: a, body: b, choices: c, rubies: d, id: e};
+var _user$project$Storylets_Models$Storylet = F4(
+	function (a, b, c, d) {
+		return {title: a, body: b, events: c, id: d};
 	});
 
-var _user$project$Models$Inventory = function (a) {
-	return {rubies: a};
+var _user$project$SharedModels$Event = function (a) {
+	return {ctor: 'Event', _0: a};
 };
-var _user$project$Models$Model = F4(
-	function (a, b, c, d) {
-		return {activity: a, inventory: b, currentStorylet: c, storylets: d};
+var _user$project$SharedModels$Storylet = function (a) {
+	return {ctor: 'Storylet', _0: a};
+};
+
+var _user$project$Models$Model = F5(
+	function (a, b, c, d, e) {
+		return {activity: a, inventory: b, currentState: c, storylets: d, events: e};
 	});
 var _user$project$Models$BendyRealm = {ctor: 'BendyRealm'};
 var _user$project$Models$initModel = {
 	activity: _user$project$Models$BendyRealm,
 	inventory: {rubies: 1},
-	currentStorylet: 0,
-	storylets: _user$project$Storylets_Models$initialStorylets
+	currentState: _user$project$SharedModels$Storylet(0),
+	storylets: _user$project$Storylets_Models$initialStorylets,
+	events: _user$project$Events_Models$initialEvents
 };
 var _user$project$Models$Game = {ctor: 'Game'};
 
@@ -7772,13 +7815,63 @@ var _user$project$Messages$Noop = {ctor: 'Noop'};
 var _user$project$Messages$SetActivity = function (a) {
 	return {ctor: 'SetActivity', _0: a};
 };
-var _user$project$Messages$TransitionTo = function (a) {
-	return {ctor: 'TransitionTo', _0: a};
+var _user$project$Messages$TransitionToEvent = function (a) {
+	return {ctor: 'TransitionToEvent', _0: a};
+};
+var _user$project$Messages$TransitionToStorylet = function (a) {
+	return {ctor: 'TransitionToStorylet', _0: a};
 };
 
+var _user$project$Storylets_Views$onwardsButton = F2(
+	function (model, event) {
+		var toStorylet = A2(_user$project$Storylets_Models$storyletForId, model.storylets, event.to);
+		return A2(
+			_elm_lang$html$Html$button,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Events$onClick(
+					_user$project$Messages$TransitionToStorylet(toStorylet))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text('Onwards!')
+				]));
+	});
+var _user$project$Storylets_Views$eventDiv = F2(
+	function (model, eventId) {
+		var event = A2(_user$project$Events_Models$eventForId, model.events, eventId);
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$h2,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(event.title)
+						])),
+					A2(
+					_elm_lang$html$Html$p,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_evancz$elm_markdown$Markdown$toHtml,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
+							event.body)
+						])),
+					A2(_user$project$Storylets_Views$onwardsButton, model, event)
+				]));
+	});
 var _user$project$Storylets_Views$buttonForChoice = F2(
-	function (stories, eventId) {
-		var storylet = A2(_user$project$Storylets_Models$storyletForId, stories, eventId);
+	function (events, eventId) {
+		var event = A2(_user$project$Events_Models$eventForId, events, eventId);
 		return A2(
 			_elm_lang$html$Html$div,
 			_elm_lang$core$Native_List.fromArray(
@@ -7790,19 +7883,19 @@ var _user$project$Storylets_Views$buttonForChoice = F2(
 					_elm_lang$core$Native_List.fromArray(
 						[
 							_elm_lang$html$Html_Events$onClick(
-							_user$project$Messages$TransitionTo(storylet))
+							_user$project$Messages$TransitionToEvent(event))
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_elm_lang$html$Html$text(storylet.title)
+							_elm_lang$html$Html$text(event.title)
 						]))
 				]));
 	});
 var _user$project$Storylets_Views$buttonsForChoices = F2(
-	function (stories, choices) {
+	function (events, choices) {
 		var buttons = A2(
 			_elm_lang$core$List$map,
-			_user$project$Storylets_Views$buttonForChoice(stories),
+			_user$project$Storylets_Views$buttonForChoice(events),
 			choices);
 		return A2(
 			_elm_lang$html$Html$div,
@@ -7810,37 +7903,38 @@ var _user$project$Storylets_Views$buttonsForChoices = F2(
 				[]),
 			buttons);
 	});
-var _user$project$Storylets_Views$storyletDiv = function (model) {
-	var storylet = A2(_user$project$Storylets_Models$storyletForId, model.storylets, model.currentStorylet);
-	return A2(
-		_elm_lang$html$Html$div,
-		_elm_lang$core$Native_List.fromArray(
-			[]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html$h2,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(storylet.title)
-					])),
-				A2(
-				_elm_lang$html$Html$p,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_evancz$elm_markdown$Markdown$toHtml,
-						_elm_lang$core$Native_List.fromArray(
-							[]),
-						storylet.body)
-					])),
-				A2(_user$project$Storylets_Views$buttonsForChoices, model.storylets, storylet.choices)
-			]));
-};
+var _user$project$Storylets_Views$storyletDiv = F2(
+	function (model, storyletId) {
+		var storylet = A2(_user$project$Storylets_Models$storyletForId, model.storylets, storyletId);
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$h2,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(storylet.title)
+						])),
+					A2(
+					_elm_lang$html$Html$p,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_evancz$elm_markdown$Markdown$toHtml,
+							_elm_lang$core$Native_List.fromArray(
+								[]),
+							storylet.body)
+						])),
+					A2(_user$project$Storylets_Views$buttonsForChoices, model.events, storylet.events)
+				]));
+	});
 
 var _user$project$Views$activityControl = function (model) {
 	return A2(
@@ -7899,11 +7993,16 @@ var _user$project$Views$gameView = function (model) {
 			]));
 };
 var _user$project$Views$storyView = function (model) {
-	return _user$project$Storylets_Views$storyletDiv(model);
+	var _p0 = model.currentState;
+	if (_p0.ctor === 'Storylet') {
+		return A2(_user$project$Storylets_Views$storyletDiv, model, _p0._0);
+	} else {
+		return A2(_user$project$Storylets_Views$eventDiv, model, _p0._0);
+	}
 };
 var _user$project$Views$viewForActivity = function (model) {
-	var _p0 = model.activity;
-	if (_p0.ctor === 'Game') {
+	var _p1 = model.activity;
+	if (_p1.ctor === 'Game') {
 		return _user$project$Views$gameView(model);
 	} else {
 		return _user$project$Views$storyView(model);
@@ -7943,24 +8042,46 @@ var _user$project$Views$view = function (model) {
 			]));
 };
 
-var _user$project$Update$transition = F2(
+var _user$project$Update$transitionToEvent = F2(
+	function (model, event) {
+		var inventory = model.inventory;
+		var newInventory = _elm_lang$core$Native_Utils.update(
+			inventory,
+			{rubies: inventory.rubies - 1});
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				inventory: newInventory,
+				currentState: _user$project$SharedModels$Event(event.id)
+			});
+	});
+var _user$project$Update$transitionToStorylet = F2(
 	function (model, storylet) {
 		var inventory = model.inventory;
 		var newInventory = _elm_lang$core$Native_Utils.update(
 			inventory,
-			{rubies: inventory.rubies + storylet.rubies});
+			{rubies: inventory.rubies + 1});
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{inventory: newInventory, currentStorylet: storylet.id});
+			{
+				inventory: newInventory,
+				currentState: _user$project$SharedModels$Storylet(storylet.id)
+			});
 	});
 var _user$project$Update$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
 		switch (_p0.ctor) {
-			case 'TransitionTo':
+			case 'TransitionToStorylet':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Update$transition, model, _p0._0),
+					_0: A2(_user$project$Update$transitionToStorylet, model, _p0._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'TransitionToEvent':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$Update$transitionToEvent, model, _p0._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'SetActivity':
