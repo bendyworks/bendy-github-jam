@@ -9,6 +9,7 @@ type Msg =
   | TransitionToEvent Event
   | SetActivity Activity
   | EditAction EditMsg
+  | UpdateFromEditModel
   | Noop
 
 
@@ -16,3 +17,4 @@ type EditMsg
   = Title String
   | Body String
   | Load Storylet
+  | CurrId String
