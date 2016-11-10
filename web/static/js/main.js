@@ -7684,6 +7684,12 @@ var _evancz$elm_markdown$Markdown$Options = F4(
 		return {githubFlavored: a, defaultHighlighting: b, sanitize: c, smartypants: d};
 	});
 
+var _user$project$Editor_Models$EditModel = F3(
+	function (a, b, c) {
+		return {title: a, body: b, currId: c};
+	});
+var _user$project$Editor_Models$initialEditModel = A3(_user$project$Editor_Models$EditModel, '', '', 0);
+
 var _user$project$Storylets_Models$currentStorylet = F2(
 	function (id, storyletDict) {
 		return A2(_elm_lang$core$Dict$get, id, storyletDict);
@@ -7797,9 +7803,9 @@ var _user$project$SharedModels$Storylet = function (a) {
 	return {ctor: 'Storylet', _0: a};
 };
 
-var _user$project$Models$Model = F5(
-	function (a, b, c, d, e) {
-		return {activity: a, inventory: b, currentState: c, storylets: d, events: e};
+var _user$project$Models$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {activity: a, inventory: b, currentState: c, storylets: d, events: e, editModel: f};
 	});
 var _user$project$Models$Edit = {ctor: 'Edit'};
 var _user$project$Models$BendyRealm = {ctor: 'BendyRealm'};
@@ -7808,11 +7814,15 @@ var _user$project$Models$initModel = {
 	inventory: {rubies: 1},
 	currentState: _user$project$SharedModels$Storylet(0),
 	storylets: _user$project$Storylets_Models$initialStorylets,
-	events: _user$project$Events_Models$initialEvents
+	events: _user$project$Events_Models$initialEvents,
+	editModel: _user$project$Editor_Models$initialEditModel
 };
 var _user$project$Models$Game = {ctor: 'Game'};
 
 var _user$project$Messages$Noop = {ctor: 'Noop'};
+var _user$project$Messages$EditAction = function (a) {
+	return {ctor: 'EditAction', _0: a};
+};
 var _user$project$Messages$SetActivity = function (a) {
 	return {ctor: 'SetActivity', _0: a};
 };
@@ -7822,8 +7832,61 @@ var _user$project$Messages$TransitionToEvent = function (a) {
 var _user$project$Messages$TransitionToStorylet = function (a) {
 	return {ctor: 'TransitionToStorylet', _0: a};
 };
+var _user$project$Messages$Load = function (a) {
+	return {ctor: 'Load', _0: a};
+};
+var _user$project$Messages$Body = function (a) {
+	return {ctor: 'Body', _0: a};
+};
+var _user$project$Messages$Title = function (a) {
+	return {ctor: 'Title', _0: a};
+};
 
+var _user$project$Editor_Views$editStoryletForm = function (editModel) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$textarea,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onInput(
+						function (s) {
+							return _user$project$Messages$EditAction(
+								_user$project$Messages$Title(s));
+						})
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(editModel.title)
+					])),
+				A2(
+				_elm_lang$html$Html$br,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$html$Html$textarea,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onInput(
+						function (s) {
+							return _user$project$Messages$EditAction(
+								_user$project$Messages$Body(s));
+						})
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(editModel.body)
+					]))
+			]));
+};
 var _user$project$Editor_Views$editView = function (model) {
+	var sl1 = A2(_user$project$Storylets_Models$storyletForId, model.storylets, 0);
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -7845,9 +7908,41 @@ var _user$project$Editor_Views$editView = function (model) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html$text('Edit the stories')
-					]))
+					])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(
+						_user$project$Messages$EditAction(
+							_user$project$Messages$Load(sl1)))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Load')
+					])),
+				_user$project$Editor_Views$editStoryletForm(model.editModel)
 			]));
 };
+var _user$project$Editor_Views$editUpdate = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Title':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{title: _p0._0});
+			case 'Body':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{body: _p0._0});
+			default:
+				var _p1 = _p0._0;
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{title: _p1.title, body: _p1.body, currId: _p1.id});
+		}
+	});
 
 var _user$project$Events_Views$onwardsButton = F2(
 	function (model, event) {
@@ -8132,6 +8227,16 @@ var _user$project$Update$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{activity: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'EditAction':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							editModel: A2(_user$project$Editor_Views$editUpdate, _p0._0, model.editModel)
+						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:

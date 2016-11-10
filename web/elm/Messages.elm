@@ -8,4 +8,11 @@ type Msg =
   TransitionToStorylet Storylet
   | TransitionToEvent Event
   | SetActivity Activity
+  | EditAction EditMsg
   | Noop
+
+
+type EditMsg
+  = Title String
+  | Body String
+  | Load Storylet

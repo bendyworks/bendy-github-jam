@@ -5,6 +5,7 @@ import Models exposing (Model, Activity(..))
 import Storylets.Models exposing (Storylet)
 import Events.Models exposing (Event)
 import SharedModels exposing (StateType)
+import Editor.Updates exposing (editUpdate)
 
 transitionToStorylet : Model -> Storylet -> Model
 transitionToStorylet model storylet =
@@ -39,6 +40,9 @@ update msg model =
 
     SetActivity act ->
       ({ model | activity = act }, Cmd.none)
+
+    EditAction act ->
+      ({model | editModel = editUpdate act model.editModel}, Cmd.none)
 
     Noop ->
        (model, Cmd.none)
