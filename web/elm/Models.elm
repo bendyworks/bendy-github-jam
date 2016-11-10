@@ -9,7 +9,7 @@ import SharedModels exposing (StateType)
 type Activity =
   Game
   | BendyRealm
-
+  | Edit
 
 type alias Model = {activity: Activity
                     , inventory: Inventory

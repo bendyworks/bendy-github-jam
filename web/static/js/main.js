@@ -7684,49 +7684,6 @@ var _evancz$elm_markdown$Markdown$Options = F4(
 		return {githubFlavored: a, defaultHighlighting: b, sanitize: c, smartypants: d};
 	});
 
-var _user$project$Players_Models$Inventory = function (a) {
-	return {rubies: a};
-};
-
-var _user$project$Events_Models$idFn = function (inv) {
-	return inv;
-};
-var _user$project$Events_Models$initialEventList = function () {
-	var inventoryFn = function (inventory) {
-		return _elm_lang$core$Native_Utils.update(
-			inventory,
-			{rubies: inventory.rubies + 1});
-	};
-	return _elm_lang$core$Native_List.fromArray(
-		[
-			{title: 'A transition', body: 'You gained a rubies by transitioning through this event!', id: 0, from: 0, to: 1, onBefore: inventoryFn, onAfter: _user$project$Events_Models$idFn},
-			{title: 'Another transition', body: 'Yay! it worked again!', id: 1, from: 1, to: 2, onBefore: _user$project$Events_Models$idFn, onAfter: _user$project$Events_Models$idFn},
-			{title: 'The Last Event', body: 'OK now its gonna loop back to the start', id: 2, from: 2, to: 0, onBefore: _user$project$Events_Models$idFn, onAfter: _user$project$Events_Models$idFn}
-		]);
-}();
-var _user$project$Events_Models$initialEvents = _elm_lang$core$Dict$fromList(
-	A2(
-		_elm_lang$core$List$map,
-		function (event) {
-			return {ctor: '_Tuple2', _0: event.id, _1: event};
-		},
-		_user$project$Events_Models$initialEventList));
-var _user$project$Events_Models$emptyEvent = {title: 'Missing Event', body: 'Its missing!', id: -1, from: 1, to: 0, onBefore: _user$project$Events_Models$idFn, onAfter: _user$project$Events_Models$idFn};
-var _user$project$Events_Models$eventForId = F2(
-	function (eventDict, id) {
-		var fetched = A2(_elm_lang$core$Dict$get, id, eventDict);
-		var _p0 = fetched;
-		if (_p0.ctor === 'Just') {
-			return _p0._0;
-		} else {
-			return _user$project$Events_Models$emptyEvent;
-		}
-	});
-var _user$project$Events_Models$Event = F7(
-	function (a, b, c, d, e, f, g) {
-		return {title: a, id: b, body: c, from: d, to: e, onBefore: f, onAfter: g};
-	});
-
 var _user$project$Storylets_Models$currentStorylet = F2(
 	function (id, storyletDict) {
 		return A2(_elm_lang$core$Dict$get, id, storyletDict);
@@ -7790,6 +7747,49 @@ var _user$project$Storylets_Models$Storylet = F4(
 		return {title: a, body: b, events: c, id: d};
 	});
 
+var _user$project$Players_Models$Inventory = function (a) {
+	return {rubies: a};
+};
+
+var _user$project$Events_Models$idFn = function (inv) {
+	return inv;
+};
+var _user$project$Events_Models$initialEventList = function () {
+	var inventoryFn = function (inventory) {
+		return _elm_lang$core$Native_Utils.update(
+			inventory,
+			{rubies: inventory.rubies + 1});
+	};
+	return _elm_lang$core$Native_List.fromArray(
+		[
+			{title: 'A transition', body: 'You gained a rubies by transitioning through this event!', id: 0, from: 0, to: 1, onBefore: inventoryFn, onAfter: _user$project$Events_Models$idFn},
+			{title: 'Another transition', body: 'Yay! it worked again!', id: 1, from: 1, to: 2, onBefore: _user$project$Events_Models$idFn, onAfter: _user$project$Events_Models$idFn},
+			{title: 'The Last Event', body: 'OK now its gonna loop back to the start', id: 2, from: 2, to: 0, onBefore: _user$project$Events_Models$idFn, onAfter: _user$project$Events_Models$idFn}
+		]);
+}();
+var _user$project$Events_Models$initialEvents = _elm_lang$core$Dict$fromList(
+	A2(
+		_elm_lang$core$List$map,
+		function (event) {
+			return {ctor: '_Tuple2', _0: event.id, _1: event};
+		},
+		_user$project$Events_Models$initialEventList));
+var _user$project$Events_Models$emptyEvent = {title: 'Missing Event', body: 'Its missing!', id: -1, from: 1, to: 0, onBefore: _user$project$Events_Models$idFn, onAfter: _user$project$Events_Models$idFn};
+var _user$project$Events_Models$eventForId = F2(
+	function (eventDict, id) {
+		var fetched = A2(_elm_lang$core$Dict$get, id, eventDict);
+		var _p0 = fetched;
+		if (_p0.ctor === 'Just') {
+			return _p0._0;
+		} else {
+			return _user$project$Events_Models$emptyEvent;
+		}
+	});
+var _user$project$Events_Models$Event = F7(
+	function (a, b, c, d, e, f, g) {
+		return {title: a, id: b, body: c, from: d, to: e, onBefore: f, onAfter: g};
+	});
+
 var _user$project$SharedModels$Event = function (a) {
 	return {ctor: 'Event', _0: a};
 };
@@ -7801,6 +7801,7 @@ var _user$project$Models$Model = F5(
 	function (a, b, c, d, e) {
 		return {activity: a, inventory: b, currentState: c, storylets: d, events: e};
 	});
+var _user$project$Models$Edit = {ctor: 'Edit'};
 var _user$project$Models$BendyRealm = {ctor: 'BendyRealm'};
 var _user$project$Models$initModel = {
 	activity: _user$project$Models$BendyRealm,
@@ -7822,7 +7823,33 @@ var _user$project$Messages$TransitionToStorylet = function (a) {
 	return {ctor: 'TransitionToStorylet', _0: a};
 };
 
-var _user$project$Storylets_Views$onwardsButton = F2(
+var _user$project$Editor_Views$editView = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$h2,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Edit')
+					])),
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Edit the stories')
+					]))
+			]));
+};
+
+var _user$project$Events_Views$onwardsButton = F2(
 	function (model, event) {
 		var toStorylet = A2(_user$project$Storylets_Models$storyletForId, model.storylets, event.to);
 		return A2(
@@ -7837,7 +7864,7 @@ var _user$project$Storylets_Views$onwardsButton = F2(
 					_elm_lang$html$Html$text('Onwards!')
 				]));
 	});
-var _user$project$Storylets_Views$eventDiv = F2(
+var _user$project$Events_Views$eventDiv = F2(
 	function (model, eventId) {
 		var event = A2(_user$project$Events_Models$eventForId, model.events, eventId);
 		return A2(
@@ -7866,9 +7893,10 @@ var _user$project$Storylets_Views$eventDiv = F2(
 								[]),
 							event.body)
 						])),
-					A2(_user$project$Storylets_Views$onwardsButton, model, event)
+					A2(_user$project$Events_Views$onwardsButton, model, event)
 				]));
 	});
+
 var _user$project$Storylets_Views$buttonForChoice = F2(
 	function (events, eventId) {
 		var event = A2(_user$project$Events_Models$eventForId, events, eventId);
@@ -7964,6 +7992,17 @@ var _user$project$Views$activityControl = function (model) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html$text('Story')
+					])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(
+						_user$project$Messages$SetActivity(_user$project$Models$Edit))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Edit')
 					]))
 			]));
 };
@@ -7997,15 +8036,18 @@ var _user$project$Views$storyView = function (model) {
 	if (_p0.ctor === 'Storylet') {
 		return A2(_user$project$Storylets_Views$storyletDiv, model, _p0._0);
 	} else {
-		return A2(_user$project$Storylets_Views$eventDiv, model, _p0._0);
+		return A2(_user$project$Events_Views$eventDiv, model, _p0._0);
 	}
 };
 var _user$project$Views$viewForActivity = function (model) {
 	var _p1 = model.activity;
-	if (_p1.ctor === 'Game') {
-		return _user$project$Views$gameView(model);
-	} else {
-		return _user$project$Views$storyView(model);
+	switch (_p1.ctor) {
+		case 'Game':
+			return _user$project$Views$gameView(model);
+		case 'BendyRealm':
+			return _user$project$Views$storyView(model);
+		default:
+			return _user$project$Editor_Views$editView(model);
 	}
 };
 var _user$project$Views$view = function (model) {

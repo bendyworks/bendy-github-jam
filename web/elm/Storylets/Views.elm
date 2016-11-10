@@ -37,21 +37,3 @@ storyletDiv model storyletId =
       , Html.p  [] [ Markdown.toHtml [] storylet.body ]
       , buttonsForChoices model.events storylet.events
       ]
-
-onwardsButton : Model -> Event -> Html.Html Msg
-onwardsButton model event =
-  let
-    toStorylet = storyletForId model.storylets event.to
-  in
-    Html.button [onClick (TransitionToStorylet toStorylet)] [text "Onwards!"]
-
-eventDiv : Model -> Int -> Html.Html Msg
-eventDiv model eventId =
-  let
-    event = eventForId model.events eventId
-  in
-    div []
-    [ Html.h2 [] [ text event.title ]
-    , Html.p  [] [ Markdown.toHtml [] event.body ]
-    , onwardsButton model event
-    ]
