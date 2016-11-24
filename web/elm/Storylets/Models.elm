@@ -2,19 +2,24 @@ module Storylets.Models exposing (..)
 
 import Dict
 
-type alias Storylet = { title: String
-                      , body: String
-                      , events: List Int
-                      , id: Int
-                      }
 
-type alias StoryDict = Dict.Dict Int Storylet
+type alias Storylet =
+    { title : String
+    , body : String
+    , events : List Int
+    , id : Int
+    }
+
+
+type alias StoryDict =
+    Dict.Dict Int Storylet
+
 
 introStorylet : Storylet
 introStorylet =
-  { title = "The Start"
-  , body =
-    """
+    { title = "The Start"
+    , body =
+        """
 ### This is some intro text.
 
 #### It should explain:
@@ -28,15 +33,16 @@ your stats and such. **FOR GREAT JUSTICE**
 - You shall **HACK** and/or **MOD** and/or **AUGMENT** and/or **:kanye:**
 your bendyself to achieve **MAXIMUM FUNTIMES**
 """
-  , events = [0]
-  , id = 0
-  }
+    , events = [ 0 ]
+    , id = 0
+    }
+
 
 demoNextStorylet : Storylet
 demoNextStorylet =
-  { title = "The Next Storylet"
-  , body =
-    """
+    { title = "The Next Storylet"
+    , body =
+        """
 ### Yay! It works
 
 #### Your `rubies` count has been incremented
@@ -54,29 +60,31 @@ I'm also thinking about
 - Names. Names are hard.
 
 """
-  , events = [1]
-  , id = 1
-  }
+    , events = [ 1 ]
+    , id = 1
+    }
+
 
 moreRubies : Storylet
 moreRubies =
-  { title = "Gain More Rubies"
-  , body =
-    """
+    { title = "Gain More Rubies"
+    , body =
+        """
 ### OK, here are some **MORE RUBIES**
 
 What should they be for??
 
 """
-  , events = [2]
-  , id = 2
-  }
+    , events = [ 2 ]
+    , id = 2
+    }
+
 
 fewerRubies : Storylet
 fewerRubies =
-  { title = "Lose Some Rubies"
-  , body =
-    """
+    { title = "Lose Some Rubies"
+    , body =
+        """
 ### Oh No! A Bad Thing Has Happened
 
 #### You have lost 1 Rubies!
@@ -84,36 +92,45 @@ fewerRubies =
 And I didn't implement a 0 bound check! :o
 
 """
-  , events = [0]
-  , id = 3
-  }
+    , events = [ 0 ]
+    , id = 3
+    }
+
 
 emptyStorylet : Storylet
 emptyStorylet =
-  { title = "Blank (this shouldn't happen)"
-  , body = "Seriously this is probs a bugx"
-  , events = []
-  , id = -1
-  }
+    { title = "Blank (this shouldn't happen)"
+    , body = "Seriously this is probs a bugx"
+    , events = []
+    , id = -1
+    }
+
 
 storyletForId : Dict.Dict Int Storylet -> Int -> Storylet
 storyletForId storyletDict id =
-  let
-    fetched = Dict.get id storyletDict
-  in
-    case fetched of
-      Just storylet -> storylet
-      Nothing -> emptyStorylet
+    let
+        fetched =
+            Dict.get id storyletDict
+    in
+        case fetched of
+            Just storylet ->
+                storylet
+
+            Nothing ->
+                emptyStorylet
+
 
 initialStoryletList : List Storylet
 initialStoryletList =
-  [introStorylet, demoNextStorylet, moreRubies, fewerRubies, emptyStorylet]
+    [ introStorylet, demoNextStorylet, moreRubies, fewerRubies, emptyStorylet ]
+
 
 initialStorylets : Dict.Dict Int Storylet
 initialStorylets =
-  Dict.fromList
-  <| List.map (\storylet -> (storylet.id, storylet)) initialStoryletList
+    Dict.fromList <|
+        List.map (\storylet -> ( storylet.id, storylet )) initialStoryletList
+
 
 currentStorylet : Int -> Dict.Dict Int Storylet -> Maybe Storylet
 currentStorylet id storyletDict =
-  Dict.get id storyletDict
+    Dict.get id storyletDict
