@@ -14,9 +14,19 @@ import Messages exposing (Msg(..), EditMsg(..))
 editStoryletForm : EditModel -> Html.Html Msg
 editStoryletForm editModel =
     div []
-        [ Html.textarea [ rows 1, cols 60, onInput (\s -> EditAction (Title s)) ] [ text editModel.title ]
+        [ Html.textarea
+            [ rows 1
+            , cols 60
+            , onInput (\s -> EditAction (Title s))
+            ]
+            [ text editModel.title ]
         , Html.br [] []
-        , Html.textarea [ rows 20, cols 100, onInput (\s -> EditAction (Body s)) ] [ text editModel.body ]
+        , Html.textarea
+            [ rows 20
+            , cols 100
+            , onInput (\s -> EditAction (Body s))
+            ]
+            [ text editModel.body ]
         ]
 
 
@@ -27,8 +37,12 @@ storyLoadDiv model =
             storyletForId model.storylets model.editModel.currId
     in
         div []
-            [ button [ onClick (EditAction (Load sl)) ] [ text "Load" ]
-            , Html.input [ onInput (\s -> EditAction (CurrId s)) ] [ text model.editModel.body ]
+            [ button
+                [ onClick (EditAction (Load sl)) ]
+                [ text "Load" ]
+            , Html.input
+                [ onInput (\s -> EditAction (CurrId s)) ]
+                [ text model.editModel.body ]
             ]
 
 

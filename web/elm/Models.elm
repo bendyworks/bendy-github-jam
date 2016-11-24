@@ -17,7 +17,8 @@ type Activity
 type alias Model =
     { activity : Activity
     , inventory : Inventory
-    , currentState : StateType
+    , currentStateType : StateType
+    , currentStateId : Int
     , storylets : Dict.Dict Int Storylet
     , events : Dict.Dict Int Events.Event
     , editModel : EditModel
@@ -28,7 +29,8 @@ initModel : Model
 initModel =
     { activity = BendyRealm
     , inventory = { rubies = 1 }
-    , currentState = (SharedModels.Storylet 0)
+    , currentStateType = SharedModels.Storylet
+    , currentStateId = 0
     , storylets = initialStorylets
     , events = Events.initialEvents
     , editModel = initialEditModel

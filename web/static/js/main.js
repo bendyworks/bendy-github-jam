@@ -8544,23 +8544,20 @@ var _user$project$Events_Models$Event = F7(
 		return {title: a, id: b, body: c, from: d, to: e, onBefore: f, onAfter: g};
 	});
 
-var _user$project$SharedModels$Event = function (a) {
-	return {ctor: 'Event', _0: a};
-};
-var _user$project$SharedModels$Storylet = function (a) {
-	return {ctor: 'Storylet', _0: a};
-};
+var _user$project$SharedModels$Event = {ctor: 'Event'};
+var _user$project$SharedModels$Storylet = {ctor: 'Storylet'};
 
-var _user$project$Models$Model = F6(
-	function (a, b, c, d, e, f) {
-		return {activity: a, inventory: b, currentState: c, storylets: d, events: e, editModel: f};
+var _user$project$Models$Model = F7(
+	function (a, b, c, d, e, f, g) {
+		return {activity: a, inventory: b, currentStateType: c, currentStateId: d, storylets: e, events: f, editModel: g};
 	});
 var _user$project$Models$Edit = {ctor: 'Edit'};
 var _user$project$Models$BendyRealm = {ctor: 'BendyRealm'};
 var _user$project$Models$initModel = {
 	activity: _user$project$Models$BendyRealm,
 	inventory: {rubies: 1},
-	currentState: _user$project$SharedModels$Storylet(0),
+	currentStateType: _user$project$SharedModels$Storylet,
+	currentStateId: 0,
 	storylets: _user$project$Storylets_Models$initialStorylets,
 	events: _user$project$Events_Models$initialEvents,
 	editModel: _user$project$Editor_Models$initialEditModel
@@ -9009,11 +9006,11 @@ var _user$project$Views$gameView = function (model) {
 		});
 };
 var _user$project$Views$storyView = function (model) {
-	var _p0 = model.currentState;
-	if (_p0.ctor === 'Storylet') {
-		return A2(_user$project$Storylets_Views$storyletDiv, model, _p0._0);
+	var _p0 = {ctor: '_Tuple2', _0: model.currentStateType, _1: model.currentStateId};
+	if (_p0._0.ctor === 'Storylet') {
+		return A2(_user$project$Storylets_Views$storyletDiv, model, _p0._1);
 	} else {
-		return A2(_user$project$Events_Views$eventDiv, model, _p0._0);
+		return A2(_user$project$Events_Views$eventDiv, model, _p0._1);
 	}
 };
 var _user$project$Views$viewForActivity = function (model) {
@@ -9094,10 +9091,7 @@ var _user$project$Update$transitionToEvent = F2(
 			{rubies: inventory.rubies - 1});
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{
-				inventory: newInventory,
-				currentState: _user$project$SharedModels$Event(event.id)
-			});
+			{inventory: newInventory, currentStateType: _user$project$SharedModels$Event, currentStateId: event.id});
 	});
 var _user$project$Update$transitionToStorylet = F2(
 	function (model, storylet) {
@@ -9107,10 +9101,7 @@ var _user$project$Update$transitionToStorylet = F2(
 			{rubies: inventory.rubies + 1});
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{
-				inventory: newInventory,
-				currentState: _user$project$SharedModels$Storylet(storylet.id)
-			});
+			{inventory: newInventory, currentStateType: _user$project$SharedModels$Storylet, currentStateId: storylet.id});
 	});
 var _user$project$Update$update = F2(
 	function (msg, model) {

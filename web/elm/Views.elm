@@ -12,11 +12,11 @@ import Messages exposing (Msg(..))
 
 storyView : Model -> Html.Html Msg
 storyView model =
-    case model.currentState of
-        SharedModels.Storylet id ->
+    case ( model.currentStateType, model.currentStateId ) of
+        ( SharedModels.Storylet, id ) ->
             storyletDiv model id
 
-        SharedModels.Event id ->
+        ( SharedModels.Event, id ) ->
             eventDiv model id
 
 

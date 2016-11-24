@@ -21,7 +21,8 @@ transitionToStorylet model storylet =
     in
         { model
             | inventory = newInventory
-            , currentState = SharedModels.Storylet storylet.id
+            , currentStateType = SharedModels.Storylet
+            , currentStateId = storylet.id
         }
 
 
@@ -36,7 +37,8 @@ transitionToEvent model event =
     in
         { model
             | inventory = newInventory
-            , currentState = SharedModels.Event event.id
+            , currentStateType = SharedModels.Event
+            , currentStateId = event.id
         }
 
 
